@@ -1,0 +1,73 @@
+div.maincontent {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.dustin {
+	width: 100%;
+	height: 100%;
+	aspect-ratio: 1;
+}
+
+image.dustin {
+	aspect-ratio: 1;
+}
+
+
+.mustang:hover {
+	transform: rotate(360deg);
+}
+
+.mustang {
+	aspect-ratio: auto;
+	width: 15%;
+	animation: upDown 1.5s alternate infinite ease-in-out;
+}
+
+.mustang-slideshow {
+	width: 300%;
+	height: 100px;
+	min-height: 100px;
+	margin: 0 auto;
+	position: relative;
+	overflow: hidden;
+}
+
+.mustang-slideshow {
+	animation: moveSlideshow 5s linear infinite;
+}
+
+
+.mustang {
+	width: 5%;
+	margin-right: 5%;
+	margin-left: 0%;
+	/* animation: oscillate 2s ease-in-out infinite; */
+}
+
+@keyframes moveSlideshow {
+  100% { 
+    transform: translateX(-66.6666%);  
+  }
+}
+
+@keyframes oscillate {
+	from {
+		top: 0%;
+	} to {
+		bottom: 100%;
+	}
+}
+
+.mustang-slideshow > div {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	white-space: nowrap;
+	width: 100%;
+	position: absolute;
+	top:0%;
+	left:0%;
+	height: 100%;
+}
