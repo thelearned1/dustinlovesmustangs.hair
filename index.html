@@ -4,40 +4,56 @@
 		<title>Dustin Loves Mustangs!</title>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" type="text/css" href="dustinlovesmustangs.css">
+		<script src="index.js"></script>
 	</head>
 	<body>
-		<div class="mustang-slideshow">
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
+		<div class="play-overlay">
+			<div class="background"></div>
+			<button class="play" onclick="script()"></button>
 		</div>
-		<div class="maincontent">
-			<div>
-				<image class="dustin" src="dustin-loves-mustangs.jpeg"></image>
+		<div> 
+			<div class="mustang-slideshow paused">
+				<div class="forward">
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+				</div>
 			</div>
 		</div>
-		<div class="mustang-slideshow-reverse">
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
-			<image class="mustang" src="mustang.png"></image>
+		<div class="maincontent">
+			<div id="dustinimagediv">
+				<image class="dustin" src="resources/dustin-loves-mustangs-1.png"></image>
+			</div>
+			<audio id="backgroundmusic" loop>
+				<source id="backgroundmusic-src" src="resources/song1.ogg" type="audio/ogg"/>
+			</audio>
+		</div>
+		<div class="slideshow-outer">
+			<div class="mustang-slideshow reverse paused">
+				<div class="reverse"> 
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+					<image class="mustang paused" src="resources/mustang.png"></image>
+				<div> 
+			</div>
 		</div>
 	</body>
 </html>

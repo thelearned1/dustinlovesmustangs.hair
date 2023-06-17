@@ -1,7 +1,42 @@
+body {
+	margin: 0px;
+}
+
 div.maincontent {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	min-width: 33%;
+}
+
+div.play-overlay {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	will-change: transform;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+
+div.play-overlay .background {
+	opacity: 0.75; 
+  background: #000; 
+	width: 100%;
+	height: 100%;
+	z-index: 0;
+}
+
+button.play {
+	position: absolute;
+	z-index: 10;
+	border-width: 37px 0px 37px 74px;
+	border-color: transparent;
+	border-left-color: white;
+	width: 74px;
+  height: 74px;
+	background-clip: content-box;
 }
 
 .dustin {
@@ -22,52 +57,106 @@ image.dustin {
 .mustang {
 	aspect-ratio: auto;
 	width: 15%;
-	animation: upDown 1.5s alternate infinite ease-in-out;
 }
 
 .mustang-slideshow {
-	width: 300%;
-	height: 100px;
+	height: 300px;
 	min-height: 100px;
 	margin: 0 auto;
 	position: relative;
 	overflow: hidden;
 }
 
-.mustang-slideshow {
-	animation: moveSlideshow 5s linear infinite;
-}
-
-
 .mustang {
-	width: 5%;
-	margin-right: 5%;
-	margin-left: 0%;
-	/* animation: oscillate 2s ease-in-out infinite; */
+	width: 200px;
 }
 
-@keyframes moveSlideshow {
+.mustang-slideshow div.forward .mustang {
+	margin-right: 200px;
+	margin-left: 0%;
+	animation: oscillate-reverse 2s ease-in-out infinite;
+}
+
+.mustang-slideshow div.reverse .mustang {
+	margin-right: 0%;
+	margin-left: 200px;
+	animation: oscillate 2s ease-in-out infinite;
+	transform: scaleX(-1);
+}
+
+.mustang-slideshow div .mustang:nth-child(3n+1) {
+	animation-delay: -0.67s;
+}
+
+.mustang-slideshow div .mustang:nth-child(3n+2) {
+	animation-delay: -1.33s;
+}
+
+.mustang-slideshow > div {
+	width: 4800px;
+	display: flex;	
+	align-items: center;
+	white-space: nowrap;
+	top:0%;
+	left:0%;
+	height: 100%;
+}
+
+.mustang-slideshow > div.forward {
+	animation: moveSlideshowForward 5s linear infinite;
+	flex-direction: flex-start;
+}
+
+.mustang-slideshow > div.reverse {
+	animation: moveSlideshowReverse 5s linear infinite;
+}
+
+.mustang-slideshow.reverse {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.paused {
+	animation-play-state: paused;
+}
+
+.running {
+	animation-play-state: running;
+}
+
+@keyframes moveSlideshowForward {
   100% { 
-    transform: translateX(-66.6666%);  
+    transform: translateX(-50%);  
+		-webkit-transform: translateX(-50%);
+		/* -webkit-transform: translateX(-67%); */
+  }
+}
+
+@keyframes moveSlideshowReverse {
+  100% { 
+    transform: translateX(50%);  
+		-webkit-transform: translateX(50%);
+		/* -webkit-transform: translateX(-67%); */
   }
 }
 
 @keyframes oscillate {
-	from {
-		top: 0%;
-	} to {
-		bottom: 100%;
+	0% {
+		transform: translateY(-100px);
+	} 50% {
+		transform: translateY(100px);
+	} 100% {
+		transform: translateY(-100px);
 	}
 }
 
-.mustang-slideshow > div {
-	display: flex;
-	align-items: center;
-	justify-content: space-around;
-	white-space: nowrap;
-	width: 100%;
-	position: absolute;
-	top:0%;
-	left:0%;
-	height: 100%;
+@keyframes oscillate-reverse {
+	0% {
+		transform: translateY(100px);
+	} 50% {
+		transform: translateY(-100px);
+	} 100% {
+		transform: translateY(100px);
+	}
 }
