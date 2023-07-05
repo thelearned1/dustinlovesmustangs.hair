@@ -1,9 +1,20 @@
 const SECOND = 1000;
 
+/** Given two numbers `min` and `max` and a callback function `callback`, 
+ * calls `callback` at random intervals between `min` and `max` 
+ * milliseconds.
+ * 
+ * NB: this is an insanely terrible piece of code.
+ * 
+ * @param {function} callback a callback function
+ * @param {number} min the minimum wait period before calling `callback`
+ * @param {number} max the maximum wait period before calling `callback`
+ * @returns {Function} `clearInterval`, a function which clears all 
+ * intervals associated with the `randomInterval`.
+ */
 const setRandomInterval = (callback, min, max) => {
 	let timeouts = {}; 
 	let stillTiming = false;
-	// this is insanely terrible
 	const interval = setInterval(() => {
 		if (!stillTiming) {
 			stillTiming=true;
@@ -74,11 +85,10 @@ const animatedScript = (music, musicsrc) => {
 	})
 }
 
-const togglePause = () => {
+const changePauseStage = (newState) => {
 	console.log('toggled pause');
 	const mustangs = document.querySelectorAll('.mustang');
 	const slideshows = document.querySelectorAll('.mustang-slideshow > div');
-	let newState = (mustangs[0].style.animationPlayState==='paused' ? 'running' : 'paused');
 	[...mustangs, ...slideshows].forEach(elt => {
 		elt.style.animationPlayState=newState;
 	})
@@ -86,24 +96,21 @@ const togglePause = () => {
 
 let i = 0;
 const script = async () => {
-	console.log (`running script for the ${i=i+1}th time`);
+	changePauseStage ('paused');
+	// console.log (`running script for the ${i=i+1}th time`);
 	const music = document.querySelector('#backgroundmusic');
 	const musicSrc = document.querySelector('#backgroundmusic-src');
 	const button = document.querySelector('button.play');
-	try {
-		await music.load();
-		await music.play();
+	button.onclick=() => {
+		console.log('clicked button');
+		changePauseStage('running');
+		music.play();
+		document.querySelector('div.play-overlay').remove();
 		animatedScript(music, musicSrc);
-	} catch (e) {
-		togglePause();
-		button.onclick(() => {
-			togglePause();
-			music.play();
-			document.querySelector('div.play-overlay').remove();
-			animatedScript(music, musicSrc);
-		})
 	}
 }
+
+// script();
 
 window.addEventListener('load', () => { script(); return true; });
 
