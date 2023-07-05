@@ -4,7 +4,8 @@ const SECOND = 1000;
  * calls `callback` at random intervals between `min` and `max` 
  * milliseconds.
  * 
- * NB: this is an insanely terrible piece of code.
+ * NB: this is an insanely terrible piece of code.  while this is an
+ * open-source project, you should definitely not copy this part.
  * 
  * @param {function} callback a callback function
  * @param {number} min the minimum wait period before calling `callback`
@@ -40,9 +41,22 @@ const setRandomInterval = (callback, min, max) => {
 	};
 }
 
-const animatedScript = (music, musicsrc) => {
-	const dustin = document.querySelector("#dustinimagediv");
-	const dustinImage = document.querySelector("#dustinimagediv img");
+const insertLogo = () => {
+	let logo = document.createElement('img');
+	logo.src='resources/logo.png'
+
+	let newDiv = document.createElement('div');
+	newDiv.appendChild(logo);
+	newDiv.className='logo';
+
+	const mainContent = document.querySelector('div.maincontent');
+	mainContent.childNodes[0].after(
+		newDiv
+	)
+}
+const animatedScript = () => {
+	const dustin = document.querySelector("#dustinimgdiv");
+	const dustinImage = document.querySelector("#dustinimgdiv img");
 
 	let glowing = false; 
 	const makeDustinGlow = () => {
@@ -67,26 +81,44 @@ const animatedScript = (music, musicsrc) => {
 
 	let mustangMode = true;
 	let mustangTime = 0;
-	window.addEventListener('click', (event) => {
+	const handleGlowClick = (mustangMode, glowing, event) => {
+		const dustinImage = document.querySelector("#dustinimgdiv img");
+		const music = document.querySelector('#backgroundmusic');
+		const musicSrc = document.querySelector('#backgroundmusic-src');
 		if (event.target === dustinImage && glowing) {
 			if (mustangMode) {
+				changePauseStage('paused');
 				mustangTime=music.currentTime;
-				musicsrc.src='resources/song2.ogg';
+				musicSrc.src='resources/song2-intro.ogg';
+				music.addEventListener('ended', () => {
+					musicSrc.src='resources/song2.ogg';
+					music.load();
+					music.play();
+					music.loop=true;
+				})
 				music.load();
+				music.loop=false;
+				music.currentTime=0;
 				music.play();	
+				insertLogo();
 			} else {
-				musicsrc.src='resources/song1.ogg';
+				changePauseStage('running');
+				musicSrc.src='resources/song1.ogg';
 				music.load();
 				music.currentTime=mustangTime;
 				music.play();
+				music.loop=true;
 			}
 			mustangMode=(!mustangMode);
 		}
+	}	
+
+	window.addEventListener('click', (event) => {
+		handleGlowClick(mustangMode, glowing, event);
 	})
 }
 
 const changePauseStage = (newState) => {
-	console.log('toggled pause');
 	const mustangs = document.querySelectorAll('.mustang');
 	const slideshows = document.querySelectorAll('.mustang-slideshow > div');
 	[...mustangs, ...slideshows].forEach(elt => {
@@ -97,16 +129,13 @@ const changePauseStage = (newState) => {
 let i = 0;
 const script = async () => {
 	changePauseStage ('paused');
-	// console.log (`running script for the ${i=i+1}th time`);
 	const music = document.querySelector('#backgroundmusic');
-	const musicSrc = document.querySelector('#backgroundmusic-src');
 	const button = document.querySelector('button.play');
 	button.onclick=() => {
-		console.log('clicked button');
 		changePauseStage('running');
 		music.play();
 		document.querySelector('div.play-overlay').remove();
-		animatedScript(music, musicSrc);
+		animatedScript();
 	}
 }
 
