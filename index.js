@@ -81,13 +81,13 @@ const animatedScript = () => {
 
 	let mustangMode = true;
 	let mustangTime = 0;
-	const handleGlowClick = (mustangMode, glowing, event) => {
+	const handleGlowClick = (event) => {
 		const dustinImage = document.querySelector("#dustinimgdiv img");
 		const music = document.querySelector('#backgroundmusic');
 		const musicSrc = document.querySelector('#backgroundmusic-src');
 		if (event.target === dustinImage && glowing) {
 			if (mustangMode) {
-				changePauseStage('paused');
+				changePauseState('paused');
 				mustangTime=music.currentTime;
 				musicSrc.src='resources/song2-intro.ogg';
 				music.addEventListener('ended', () => {
@@ -102,7 +102,8 @@ const animatedScript = () => {
 				music.play();	
 				insertLogo();
 			} else {
-				changePauseStage('running');
+				document.querySelector('div.logo').remove();
+				changePauseState('running');
 				musicSrc.src='resources/song1.ogg';
 				music.load();
 				music.currentTime=mustangTime;
@@ -114,11 +115,11 @@ const animatedScript = () => {
 	}	
 
 	window.addEventListener('click', (event) => {
-		handleGlowClick(mustangMode, glowing, event);
+		handleGlowClick(event);
 	})
 }
 
-const changePauseStage = (newState) => {
+const changePauseState = (newState) => {
 	const mustangs = document.querySelectorAll('.mustang');
 	const slideshows = document.querySelectorAll('.mustang-slideshow > div');
 	[...mustangs, ...slideshows].forEach(elt => {
@@ -128,11 +129,11 @@ const changePauseStage = (newState) => {
 
 let i = 0;
 const script = async () => {
-	changePauseStage ('paused');
+	changePauseState ('paused');
 	const music = document.querySelector('#backgroundmusic');
 	const button = document.querySelector('button.play');
 	button.onclick=() => {
-		changePauseStage('running');
+		changePauseState('running');
 		music.play();
 		document.querySelector('div.play-overlay').remove();
 		animatedScript();
